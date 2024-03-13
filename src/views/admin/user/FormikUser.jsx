@@ -1,13 +1,10 @@
 import { Formik } from "formik";
 import { Container, Form, Button } from "react-bootstrap";
-import { useUser } from "./UserContext";
-import { object, string} from "yup"
+import { useUser } from "../../UserContext";
 
 const FormikUser = () => {
 
-  let {createUser} = useUser();
-
-  let initialValues = {nome : "", email: ""}
+  let {createUser, blancUser, userValidationYup} = useUser();
 
   const validations = (values) => {
     const errors = {};
@@ -26,11 +23,6 @@ const FormikUser = () => {
     return errors;
   }
 
-  const validationYup = object().shape({
-    nome: string().min(3, "Digite um nome de no minimo 3 letras.").required("Campo nome é obrigatório."),
-    email: string().email("E-mail inválido").required("Campo e-mail é obrigatório."),
-  });
-
   const handleSubmitUserApi = (values, setSubmitting) => {
     createUser(values);
     setSubmitting(false);    
@@ -40,8 +32,8 @@ const FormikUser = () => {
     <Container>
       <h4>Cadastro de usuários</h4>
       <Formik
-        initialValues={initialValues}
-        validationSchema={validationYup}
+        initialValues={blancUser}
+        validationSchema={userValidationYup}
         onSubmit={(values, { setSubmitting }) => handleSubmitUserApi(values, setSubmitting)}
       >
         {({
@@ -84,7 +76,6 @@ const FormikUser = () => {
           </Form>
         )}
       </Formik>
-      
     </Container>
   )
 }

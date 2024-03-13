@@ -1,15 +1,11 @@
-import Component1 from './views/Component1'
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { UserProvider } from './views/UserContext';
+import "./config/ConfigYup";
+import User from './views/admin/user/User';
 
 function App() {
   return (
     <>
-    <UserProvider>
-      <Component1/>
-    </UserProvider>
-     
+    <User/>
     </>
   )
 }
