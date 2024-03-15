@@ -23,9 +23,11 @@ const FormikUser = () => {
     return errors;
   }
 
-  const handleSubmitUserApi = (values, setSubmitting) => {
+  const handleSubmitUserApi = (values, onSubmitProps) => {
     createUser(values);
-    setSubmitting(false);    
+    onSubmitProps.setSubmitting(false);
+    onSubmitProps.resetForm();
+
   }
 
   return (
@@ -34,7 +36,7 @@ const FormikUser = () => {
       <Formik
         initialValues={blancUser}
         validationSchema={userValidationYup}
-        onSubmit={(values, { setSubmitting }) => handleSubmitUserApi(values, setSubmitting)}
+        onSubmit={(values, onSubmitProps) => handleSubmitUserApi(values, onSubmitProps)}
       >
         {({
           values,
