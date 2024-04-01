@@ -4,7 +4,7 @@ import { useUser } from "../../UserContext";
 
 const FormikUser = () => {
 
-  let {createUser, blancUser, userValidationYup} = useUser();
+  let {createUser, getUsers, blancUser, userValidationYup} = useUser();
 
   const validations = (values) => {
     const errors = {};
@@ -27,7 +27,6 @@ const FormikUser = () => {
     createUser(values);
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm();
-
   }
 
   return (

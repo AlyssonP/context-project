@@ -5,11 +5,18 @@ import DataTable from "react-data-table-component";
 
 const TableUsers = () => {
 
-  let {users, getUsers, deleteUser} = useUser();
+  let {users, getUsers, getUser, setUser, user, deleteUser} = useUser();
 
   const handleClickRemoveUser = (event, id) => {
     // console.log(`Removendo o usuário: ${id}`);
     deleteUser(id);
+  }
+
+  const handleClickEditUser = async (event, rowUser) => {
+    setUser(rowUser);
+    console.log(rowUser);
+    console.log(user);
+
   }
 
   const colums = [
@@ -25,12 +32,21 @@ const TableUsers = () => {
       name: "Opções",
       selector: (row) => {
         return (
+          <>
           <Button
+          className="m-2"
             variant="danger"
             onClick={(e) => handleClickRemoveUser(e,row.id)}
           >
             Remover
           </Button>
+          <Button
+          variant="info"
+          onClick={(e) => handleClickEditUser(e, row)}
+        >
+          Editar
+        </Button>
+        </>
         );
       }
     }
@@ -38,7 +54,7 @@ const TableUsers = () => {
 
   useEffect(() => {
     getUsers();
-  }, [users]);
+  }, []);
 
   return (
     <Container>

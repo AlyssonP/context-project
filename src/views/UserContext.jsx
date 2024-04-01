@@ -8,6 +8,7 @@ export const UserProvider = ({children}) => {
   
   let [show, setShow] = useState(true);
   let [users, setUsers] = useState([]);
+  let [user, setUser] = useState({});
 
   let blancUser = {nome : "", email: ""}
 
@@ -22,12 +23,20 @@ export const UserProvider = ({children}) => {
     setUsers(users);
   }
 
+  const getUser = async (id) => {
+    let response = await api.get(`users/${id}`);
+    let user = await response.data;
+    return user;
+  }
+
   const createUser =  async (user) => {
     await api.post("users", user);
+    getUsers();
   }
 
   const deleteUser = async (id) => {
     await api.delete(`users/${id}`);
+    getUsers();
   }
 
   return (
@@ -35,9 +44,12 @@ export const UserProvider = ({children}) => {
       value={{
         users, 
         setUsers, 
+        user,
+        setUser,
         blancUser, 
         userValidationYup, 
         getUsers, 
+        getUser,
         createUser,
         deleteUser,
         show, 
